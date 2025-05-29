@@ -9,14 +9,14 @@ import { catchError, map, Observable } from 'rxjs';
 export class PersonService {
   private readonly APi = environment.api;
   private readonly EndPoint ="Person";
-  private readonly token = localStorage.getItem("token") || "";
 
   constructor(private http:HttpClient) { }
 
   // Obtener los datos de todas las personas
   public getAllData():Observable<any>{
     const url = [this.APi, this.EndPoint].join('/');
-    const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${this.token}`});
+    const token =  localStorage.getItem("token") || "";
+    const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${token}`});
 
     return this.http.get(url, {headers}).pipe(
       map(response => (response as any).$value || []),
@@ -30,7 +30,8 @@ export class PersonService {
   // Obtener los datos de una persona
   public getOneData(Id:number):Observable<any>{
     const url = [this.APi, this.EndPoint, Id].join('/');
-    const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${this.token}`});
+    const token =  localStorage.getItem("token") || "";
+    const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${token}`});
 
     return this.http.get(url, {headers}).pipe(
       map(response => (response as any).$value || null),
@@ -44,7 +45,7 @@ export class PersonService {
   // Guardar los datos de una persona
   public postData(data:any):Observable<any>{
     const url = [this.APi, this.EndPoint].join('/');
-    const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${this.token}`});
+    const headers = new HttpHeaders({'Content-Type':'application/json'});
 
     return this.http.post(url, data, {headers}).pipe(
       map(response => (response as any).$value || null),
@@ -57,7 +58,8 @@ export class PersonService {
   // Actualizar los datos de una persona
   public putData(data:any):Observable<any>{
     const url = [this.APi, this.EndPoint].join('/');
-    const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${this.token}`});
+    const token =  localStorage.getItem("token") || "";
+    const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${token}`});
 
     return this.http.put(url, data, {headers}).pipe(
       map(response => (response as any).$value || null),
