@@ -1,1 +1,6 @@
-export const environment = {};
+export const environment = {
+    production:false,
+    api : 'https://localhost:7201'
+};
+
+
