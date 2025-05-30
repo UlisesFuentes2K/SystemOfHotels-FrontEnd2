@@ -1,1 +1,58 @@
 <p>perfil works!</p>
+<div class="container-padre">
+    <div class="container mt-3">
+        <h2>Perfil de Usuario</h2>
+        <form *ngIf="person">
+            <div class="row">
+                <div class="col mb-3 mt-3">
+                    <label for="email">Nombre:</label>
+                    <input type="text" class="form-control" name="name" [(ngModel)]="person.name"
+                        [readonly]="!isEditing">
+                </div>
+                <div class="col mb-3 mt-3">
+                    <label for="pwd">Apellido:</label>
+                    <input type="text" class="form-control" name="lastName" [(ngModel)]="person.lastName"
+                        [readonly]="!isEditing">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="pwd">Ciudad:</label>
+                    <input type="text" class="form-control" name="city" [(ngModel)]="person.city.name"
+                        [readonly]="!isEditing">
+                </div>
+                <div class="col mb-3">
+                    <label for="pwd">País:</label>
+                    <input type="text" class="form-control" name="country" [(ngModel)]="person.city.country.name"
+                        [readonly]="!isEditing">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="pwd">Dirección:</label>
+                <input type="text" class="form-control" name="direction" [(ngModel)]="person.direction"
+                    [readonly]="!isEditing">
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="pwd">Tipo de Documento:</label>
+                    <input type="text" class="form-control" name="typeDocument" [(ngModel)]="person.idTypeDocument"
+                        [readonly]="!isEditing">
+                </div>
+                <div class="col mb-3">
+                    <label for="pwd">Numero Documento:</label>
+                    <input type="text" class="form-control" name="numberDocument" [(ngModel)]="person.numberDocument"
+                        [readonly]="!isEditing">
+                </div>
+            </div>
+            <div class="form-check mb-3">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                </label>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" (click)="editar()">Editar</button>
+                <button type="submit" class="btn btn-info" (click)="adminCuenta()">Administrar cuenta</button>
+            </div>
+        </form>
+    </div>
+</div>

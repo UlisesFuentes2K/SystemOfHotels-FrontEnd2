@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
+import { User } from '../Models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,16 @@ export class UserService {
   constructor(private http:HttpClient) { }
 
   // Obtener un usuario por Id
-  public getOneUser(id:string):Observable<any>{
+  public getOneUser(id:string):Observable<User>{
     const url = [this.Api, this.EndPoint, id].join('/');
     const token = localStorage.getItem("token") || "";
     const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${token}`});
 
-    return this.http.get(url, {headers}).pipe(
-      map(response => (response as any).$value || null),
+    return this.http.get<any>(url, {headers}).pipe(
+      map(response => {
+              const data = response?.$value ?? response;
+              return data;
+            }),
       catchError(error => {
         console.error('Error al obtener los datos del usuario');
         throw error;
@@ -32,12 +36,15 @@ export class UserService {
   }
 
   // Guardar un nuevo usuario
-  public postUser(body:any):Observable<any>{
+  public postUser(body:any):Observable<User>{
     const url = [this.Api, this.EndPoint].join('/');
     const headers = new HttpHeaders({'Content-Type':'application/json'});
 
-    return this.http.post(url, body, {headers}).pipe(
-      map(response => (response as any).$value || null),
+    return this.http.post<any>(url, body, {headers}).pipe(
+      map(response => {
+        const data = response?.$value ?? response;
+        return data;
+      }),
       catchError(error =>{
         console.error("Error al guardar los datos del usuario");
         throw error;
@@ -46,13 +53,16 @@ export class UserService {
   }
 
   // Actualizar datos de usuario
-  public putUser(body:any):Observable<any>{
+  public putUser(body:any):Observable<User>{
     const url = [this.Api, this.EndPoint].join('/');
     const token = localStorage.getItem("token") || null;
     const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${token}`});
 
-    return this.http.put(url, body, {headers}).pipe(
-      map(response =>(response as any).$value || null),
+    return this.http.put<any>(url, body, {headers}).pipe(
+      map(response => {
+        const data = response?.$value ?? response;
+        return data;
+      }),
       catchError(error => {
         console.error("Error al actualizar los datos del cliente");
         throw error;
@@ -61,45 +71,62 @@ export class UserService {
   }
 
   // Desactivar cuenta de usuario o  eliminado lógico
-  public activeUser(body:any):Observable<any>{
+  public activeUser(body:any):Observable<boolean>{
     const url = [this.Api, this.EndPoint, this.Endpoint2].join('/');
     const token = localStorage.getItem("token");
     const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${token}`});
 
-    return this.http.put(url, body, {headers}).pipe(
-      map(response => (response as any).$value || null),
+    return this.http.put<any>(url, body, {headers}).pipe(
+      map(response => {
+        return response;
+      }),
       catchError(error => {
-        console.error("Error al desactivar o activar usuario");
-        throw error;
+        console.error("Error al desactivar o activar usuario", error);
+        return of(false);
       })
     )
   }
 
   // Cambiar contraseña 
-  public changePassWord(body:any):Observable<any>{
+  public changePassWord(body:any):Observable<boolean>{
     const url = [this.Api, this.EndPoint, this.Endpoint3].join('/');
     const headers = new HttpHeaders({'Content-Type':'application/json'});
     
-    return this.http.put(url, body, {headers}).pipe(
-      map(response => (response as any).$value || null),
+    return this.http.put<any>(url, body, {headers}).pipe(
+      map(response => {
+        return response;
+      }),
       catchError(error => {
-        console.error("error al cambiar la contraseña");
-        throw error;
+        console.error("error al cambiar la contraseña", error);
+        return of(false);
       })
     )
   }
 
   // Validar usuario
-  public validateUser(body:any):Observable<any>{
+  public validateUser(body:any):Observable<boolean>{
     const url = [this.Api, this.EndPoint, this.Endpoint4].join('/');
     const headers = new HttpHeaders({'Content-Type':'application/json'});
 
-    return this.http.post(url, body, {headers}).pipe(
-      map(response => (response as any).$value || null),
+    return this.http.post<any>(url, body, {headers}).pipe(
+      map(response => {
+        const data = response?.$value ?? response;
+        if(data.idTypePerson !== 2){
+            return false;
+        }
+        this.storeUserData(data.token, data.Id);
+        return !!data.token;
+      }),
       catchError(error => {
-        console.error("Error de validación de usuario");
-        throw error;
+        console.error("Error de validación de usuario", error);
+        return of(false);
       })
     )
   }
+
+  // Guardar datos de usuario en storage
+  private storeUserData(token: string, Id: number): void {
+  localStorage.setItem("token", token);
+  localStorage.setItem("Id", Id.toString());
+}
 }

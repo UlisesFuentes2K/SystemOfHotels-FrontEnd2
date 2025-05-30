@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="container-padre">
+    <div class="container mt-5">
+        <h2>Inicio de Sesión</h2>
+        <form>
+            <div class="mb-4 mt-4">
+                <label class="mb-2" for="email">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" [(ngModel)]="sesion.Email">
+            </div>
+            <div class="mb-3">
+                <label class="mb-2" for="pwd">Contraseña:</label>
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" [(ngModel)]="sesion.PasswordHash">
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" (click)="login()">Enviar</button>
+            </div>
+            <div class="problema">
+                <p>Sí tienes problema para iniciar sesión puedes dar click en: <br>
+                   <a href="">He olvidado mi contraseña</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
