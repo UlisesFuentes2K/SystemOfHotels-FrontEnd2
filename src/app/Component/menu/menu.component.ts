@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -10,4 +11,9 @@ import { RouterModule } from '@angular/router';
 })
 export class MenuComponent {
 
+  constructor(private router:Router) {}
+  
+  irProfile(){
+    this.router.navigate(['profile']);
+  }
 }

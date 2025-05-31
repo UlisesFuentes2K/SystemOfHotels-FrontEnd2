@@ -1,4 +1,5 @@
 import { City } from "../../../../SystemOfHotels_F/src/app/Models/city";
+import { TypeDocument } from "./type-document";
 
 export interface Person {
     idPerson:number;
@@ -11,4 +12,5 @@ export interface Person {
     idCity:number;
     idTypePerson:number;
     city:City;
+    typeDocument:TypeDocument;
 }

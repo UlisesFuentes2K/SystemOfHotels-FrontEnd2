@@ -110,11 +110,12 @@ export class UserService {
 
     return this.http.post<any>(url, body, {headers}).pipe(
       map(response => {
-        const data = response?.$value ?? response;
+        const data = response?.$value || response;
         if(data.idTypePerson !== 2){
             return false;
         }
-        this.storeUserData(data.token, data.Id, data.idPerson);
+        const rol = data.rol[0];
+        this.storeUserData(data.token, data.userId, data.idPerson, rol);
         return !!data.token;
       }),
       catchError(error => {
@@ -125,8 +126,10 @@ export class UserService {
   }
 
   // Guardar datos de usuario en storage
-  private storeUserData(token: string, Id: number, IdPerson:number): void {
+  private storeUserData(token: string, Id: string, IdPerson:number, rol:any): void {
   localStorage.setItem("token", token);
-  localStorage.setItem("Id", Id.toString());
-}
+  localStorage.setItem("Id", Id);
+  localStorage.setItem("rol", rol.toString());
+  localStorage.setItem("idPerson", IdPerson.toString());
+  }
 }

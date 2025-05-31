@@ -19,7 +19,8 @@ export class PerfilComponent implements OnInit{
   constructor(private personService:PersonService, private router:Router){ }
 
   public ngOnInit(): void {
-    const idPerson = 8;
+    const idPerson = parseInt(localStorage.getItem("idPerson") || "-1");
+    console.log("El idPerson es: ", idPerson);
     this.personService.getOneData(idPerson).subscribe({
       next:(data) =>{this.person = data; console.log("Los datos de person son", this.person);},
       error:(error)=>{console.error("Error al obtener los datos: ", error)}

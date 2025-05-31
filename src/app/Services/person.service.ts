@@ -32,11 +32,12 @@ export class PersonService {
   }
 
   // Obtener los datos de una persona
-  public getOneData(Id:number):Observable<Person>{
-    const url = [this.APi, this.EndPoint, Id].join('/');
+  public getOneData(id:number):Observable<Person>{
+    const url = [this.APi, this.EndPoint, id].join('/');
     const token =  localStorage.getItem("token") || "";
     const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${token}`});
 
+    console.log("los datos del servicio son: ", id, token, url);
     return this.http.get<any>(url, {headers}).pipe(
       map(response => {
         const data = response?.$value ?? response;
