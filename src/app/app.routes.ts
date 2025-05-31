@@ -6,18 +6,20 @@ import { CambioPasswordComponent } from './Component/cambio-password/cambio-pass
 import { PerfilComponent } from './Component/perfil/perfil.component';
 import { MenuComponent } from './Component/menu/menu.component';
 import { HomeComponent } from './Component/home/home.component';
+import { UserComponent } from './Component/user/user.component';
 //
 
 export const routes: Routes = [
     {path:'', redirectTo:'login', pathMatch:'full'},
     {path:'login', component:LoginComponent},
+    {path:'change_password', component:CambioPasswordComponent},
     {
         path:'',
         component:MenuComponent,
         children:[
             {path:'profile', component:PerfilComponent},
-            {path:'change_password', component:CambioPasswordComponent},
-            {path:'home', component:HomeComponent}
+            {path:'home', component:HomeComponent},
+            {path:'user', component:UserComponent},
         ]
     },
     {path:'**', redirectTo:'login'}

@@ -31,6 +31,6 @@ export class PerfilComponent implements OnInit{
   }
 
   public adminCuenta(){
-    
+    this.router.navigate(['user']);
   }
 }

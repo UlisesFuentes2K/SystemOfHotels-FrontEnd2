@@ -1,11 +1,10 @@
 export interface User {
-    Id:string;
-    iderson:number;
-    UserName:string;
-    Email:string;
-    EmailConfirmed:boolean;
-    PasswordHash:string;
-    TwoFactorEnabled:boolean;
-    PhoneNumber:string;
+    id:string;
+    email:string;
+    emailConfirmed:boolean;
+    passwordHash:string;
+    twoFactorEnabled:boolean;
+    phoneNumber:string;
+    phoneNumberConfirmed:boolean;
     isActive:boolean;
 }

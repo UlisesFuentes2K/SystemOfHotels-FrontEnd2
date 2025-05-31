@@ -1,0 +1,40 @@
+<div class="container-padre">
+    <div class="container mt-3">
+        <h2>Admin Cuenta de Usuario</h2>
+        <form *ngIf="user">
+            <div class="mb-4 mt-4">
+                <label for="email">Email o Usuario:</label>
+                <input type="text" class="form-control" name="email" [(ngModel)]="user.email" [readonly]="!isEditing">
+            </div>
+            <div class="mb-4 mt-4">
+                <label for="phone">Número de teléfono:</label>
+                <input type="text" class="form-control" name="phone" [(ngModel)]="user.phoneNumber"
+                    [readonly]="!isEditing">
+            </div>
+            <div class="check">
+                <div class="ck form-check mb-3">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="remember"
+                            [(ngModel)]="user.twoFactorEnabled" [readonly]="!isEditing"> Doble factor Auth
+                    </label>
+                </div>
+                <div class="ck form-check mb-3">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="remember"
+                            [(ngModel)]="user.phoneNumberConfirmed" [readonly]="!isEditing"> Teléfono Confirmado
+                    </label>
+                </div>
+                <div class="ck form-check mb-3">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="remember"
+                            [(ngModel)]="user.emailConfirmed" [readonly]="!isEditing"> Email Confirmado
+                    </label>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Editar</button>
+                <button type="submit" class="btn btn-info">Cambiar Contraseña</button>
+            </div>
+        </form>
+    </div>
+</div>
