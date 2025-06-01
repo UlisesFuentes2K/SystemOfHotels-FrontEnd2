@@ -15,60 +15,69 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class UserComponent {
-  public user:User | null = null;
+  public user: User | null = null;
   public isEditing = false;
-  public id:any;
-  constructor(private userService:UserService, private router:Router, private route:ActivatedRoute){}
+  public data:any;
+  public id: any;
+  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-    const Id = params['id'];
+      const Id = params['id'];
       this.id = Id;
-    })
+    }) 
 
-      this.userService.getOneUser(this.id).subscribe({
-        next:(data) => {
-          this.user = data;
-          console.log("Los datos son: ", this.user);},
-        error:(error) => {
-          console.error("Error al obtener los datos", error);
-        }
-      })
+    this.userService.getOneUser(this.id).subscribe({
+      next: (data) => {
+        this.user = data;
+        console.log("Los datos son: ", this.user);
+      },
+      error: (error) => {
+        console.error("Error al obtener los datos", error);
+      }
+    })
   }
 
-  cancelar(){
+  cancelar() {
     this.isEditing = false;
   }
 
-  guardarDatos(){
+  guardarDatos() {
     this.userService.putUser(this.user).subscribe({
-      next:(data)=>{
+      next: (data) => {
         console.log("datos enviados: ", data);
         this.isEditing = false;
       },
-      error:(error)=>{console.error("Error al enviar los datos: ", error);}
+      error: (error) => { console.error("Error al enviar los datos: ", error); }
     })
   }
 
-  desactivarUser(){
-    this.userService.activeUser(this.user).subscribe({
-      next:(data)=>{console.log("datos enviados: ", data);},
-      error:(error)=>{console.error("Error al enviar los datos: ", error);}
-    })
+  desactivarUser() {
+    if (this.user) {
+      this.data.isActive = false;
+      this.data.id= this.user.id;
+
+      if (!this.data.isActive) {
+        this.userService.activeUser(this.data).subscribe({
+          next: (data) => { console.log("datos enviados: ", data); },
+          error: (error) => { console.error("Error al enviar los datos: ", error); }
+        })
+      }
+    }
   }
 
-  cambiarPassword(){
+  cambiarPassword() {
     this.userService.changePassWord(this.user).subscribe({
-      next:(data)=>{console.log("datos enviados: ", data);},
-      error:(error)=>{console.error("Error al enviar los datos: ", error);}
+      next: (data) => { console.log("datos enviados: ", data); },
+      error: (error) => { console.error("Error al enviar los datos: ", error); }
     })
   }
 
-  editarDatos(){
+  editarDatos() {
     this.isEditing = true;
   }
 
-  public regresar(){
+  public regresar() {
     this.router.navigate(['user']);
   }
 }
