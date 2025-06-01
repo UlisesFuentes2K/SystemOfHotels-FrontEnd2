@@ -31,13 +31,41 @@
                     </label>
                 </div>
             </div>
-            
+
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Cambio de comtraseña</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <app-cambio-password></app-cambio-password>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
             <div class="col d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary" *ngIf="!isEditing" (click)="editarDatos()">Editar</button>
-                <button type="submit" class="btn btn-success" *ngIf="isEditing" (click)="guardarDatos()">Guardar</button>
+                <button type="submit" class="btn btn-success" *ngIf="isEditing"
+                    (click)="guardarDatos()">Guardar</button>
                 <button type="submit" class="btn btn-danger" *ngIf="isEditing" (click)="cancelar()">Cancelar</button>
-                <button type="submit" class="btn btn-warning" (click)="desactivarUser()">Desactivar cuenta</button>
-                <button type="submit" class="btn btn-info" (click)="cambiarPassword()">Cambiar Contraseña</button>
+                <button type="submit" class="btn btn-warning" (click)="desactivarUser()" *ngIf="user">
+                    {{ user.isActive ? 'Desactivar cuenta' : 'Activar cuenta' }}
+                </button>
+                <button type="submit" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal" (click)="cambiarPassword(user.id)">Cambiar Contraseña</button>
             </div>
         </form>
     </div>

@@ -76,6 +76,8 @@ export class UserService {
     const token = localStorage.getItem("token");
     const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${token}`});
 
+    console.log("EL los datos de desactivar son: ", body);
+
     return this.http.put<any>(url, body, {headers}).pipe(
       map(response => {
         return response;

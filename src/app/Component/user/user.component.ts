@@ -5,11 +5,11 @@ import { UserService } from '../../Services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../Models/user';
 import { ActivatedRoute } from '@angular/router';
-
+import { CambioPasswordComponent } from '../cambio-password/cambio-password.component';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CambioPasswordComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
@@ -17,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 export class UserComponent {
   public user: User | null = null;
   public isEditing = false;
-  public data:any;
+  public data:any={isActive:false, id:"0"};
   public id: any;
   constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) { }
 
@@ -53,24 +53,19 @@ export class UserComponent {
   }
 
   desactivarUser() {
-    if (this.user) {
-      this.data.isActive = false;
-      this.data.id= this.user.id;
-
+    if(this.user){
+      this.data.id= this.user.id || null;
       if (!this.data.isActive) {
-        this.userService.activeUser(this.data).subscribe({
-          next: (data) => { console.log("datos enviados: ", data); },
-          error: (error) => { console.error("Error al enviar los datos: ", error); }
-        })
-      }
+      this.userService.activeUser(this.data).subscribe({
+        next: (data) => { console.log("datos enviados: ", data); },
+        error: (error) => { console.error("Error al enviar los datos: ", error); }
+      })
+    }
     }
   }
 
-  cambiarPassword() {
-    this.userService.changePassWord(this.user).subscribe({
-      next: (data) => { console.log("datos enviados: ", data); },
-      error: (error) => { console.error("Error al enviar los datos: ", error); }
-    })
+  cambiarPassword(id:string) {
+    localStorage.setItem("idUserChange", id);
   }
 
   editarDatos() {
