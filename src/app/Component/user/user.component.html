@@ -15,25 +15,28 @@
                 <div class="ck form-check mb-3">
                     <label class="form-check-label">
                         <input class="form-check-input" type="checkbox" name="remember"
-                            [(ngModel)]="user.twoFactorEnabled" [readonly]="!isEditing"> Doble factor Auth
+                            [(ngModel)]="user.twoFactorEnabled" [disabled]="!isEditing"> Doble factor Auth
                     </label>
                 </div>
                 <div class="ck form-check mb-3">
                     <label class="form-check-label">
                         <input class="form-check-input" type="checkbox" name="remember"
-                            [(ngModel)]="user.phoneNumberConfirmed" [readonly]="!isEditing"> Teléfono Confirmado
+                            [(ngModel)]="user.phoneNumberConfirmed" [disabled]="!isEditing"> Teléfono Confirmado
                     </label>
                 </div>
                 <div class="ck form-check mb-3">
                     <label class="form-check-label">
                         <input class="form-check-input" type="checkbox" name="remember"
-                            [(ngModel)]="user.emailConfirmed" [readonly]="!isEditing"> Email Confirmado
+                            [(ngModel)]="user.emailConfirmed" [disabled]="!isEditing"> Email Confirmado
                     </label>
                 </div>
             </div>
             <div class="col d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">Editar</button>
-                <button type="submit" class="btn btn-info">Cambiar Contraseña</button>
+                <button type="submit" class="btn btn-primary" *ngIf="!isEditing" (click)="editarDatos()">Editar</button>
+                <button type="submit" class="btn btn-success" *ngIf="isEditing" (click)="guardarDatos()">Guardar</button>
+                <button type="submit" class="btn btn-danger" *ngIf="isEditing" (click)="cancelar()">Cancelar</button>
+                <button type="submit" class="btn btn-warning" (click)="desactivarUser()">Desactivar cuenta</button>
+                <button type="submit" class="btn btn-info" (click)="cambiarPassword()">Cambiar Contraseña</button>
             </div>
         </form>
     </div>

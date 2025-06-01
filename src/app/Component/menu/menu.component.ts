@@ -14,7 +14,8 @@ export class MenuComponent {
   constructor(private router:Router) {}
   
   irProfile(){
-    this.router.navigate(['profile']);
+    const idPerson = Number(localStorage.getItem("idPerson")) ?? -2;
+    this.router.navigate([`/profile/${idPerson}`]);
   }
 
   irEmployee(){

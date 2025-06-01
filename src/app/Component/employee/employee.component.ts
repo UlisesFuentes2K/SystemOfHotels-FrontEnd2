@@ -19,7 +19,10 @@ export class EmployeeComponent implements OnInit{
 
   ngOnInit(): void {
       this.personService.getAllData().subscribe({
-        next:(data)=>{console.log("Los datos son:", data); this.person = data;},
+        next:(data)=>{
+          console.log("Los datos son:", data); 
+          this.person = data.filter(x => x.idTypePerson !== 1);
+        },
         error:(error)=>{console.error("Error al obtener los datos", error);}
       })
   }
@@ -28,8 +31,8 @@ export class EmployeeComponent implements OnInit{
     this.router.navigate(['register']);
   }
 
-  irEdit(){
-    this.router.navigate(['edit']);
+  irEdit(id:number){
+    this.router.navigate([`/profile/${id}`]);
   }
 
   irInfo(id:string){

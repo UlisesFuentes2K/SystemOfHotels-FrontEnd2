@@ -1,5 +1,5 @@
 <div class="container mt-3">
-  <h2>Clientes Registrados</h2>
+  <h2>Empleados Registrados</h2>
   <button type="button" class="btn btn-success" id="agregar" (click)="irRegister()">Agregar</button>         
   <table class="table table-bordered">
     <thead>
@@ -10,14 +10,14 @@
         <th>Acciones</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>johnexample.com</td>
+    <tbody *ngIf="person">
+      <tr *ngFor="let item of person">
+        <td>{{item.name}}</td>
+        <td>{{item.lastName}}</td>
+        <td>{{item.direction}}</td>
         <td>
-            <button type="button" class="btn btn-warning">Editar</button>
-            <button type="button" class="btn btn-info">Info User</button>
+            <button type="button" class="btn btn-warning" (click)="irEdit(item.idPerson)">Editar</button>
+            <button type="button" class="btn btn-info" (click)="irInfo(item.users.id)">Info User</button>
         </td>
       </tr>
     </tbody>

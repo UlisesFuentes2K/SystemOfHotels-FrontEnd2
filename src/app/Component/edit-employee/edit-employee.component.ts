@@ -6,15 +6,16 @@ import { PersonService } from '../../Services/person.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
-  selector: 'app-perfil',
+  selector: 'app-edit-employee',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './perfil.component.html',
-  styleUrl: './perfil.component.css'
+  templateUrl: './edit-employee.component.html',
+  styleUrl: './edit-employee.component.css'
 })
-export class PerfilComponent implements OnInit{
-  public person:Person | null = null;
+export class EditEmployeeComponent implements OnInit{
+   public person:Person | null = null;
   public isEditing = false;
   idPerson:number = -1;
 
@@ -49,10 +50,5 @@ export class PerfilComponent implements OnInit{
 
   cancelar(){
     this.isEditing = false;
-  }
-
-  public adminCuenta(){
-    const id = localStorage.getItem("Id") || "0";
-    this.router.navigate([`/user/${id}`]);
   }
 }

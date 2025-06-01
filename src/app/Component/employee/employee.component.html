@@ -16,7 +16,7 @@
         <td>{{item.lastName}}</td>
         <td>{{item.direction}}</td>
         <td>
-            <button type="button" class="btn btn-warning">Editar</button>
+            <button type="button" class="btn btn-warning" (click)="irEdit(item.idPerson)">Editar</button>
             <button type="button" class="btn btn-info" (click)="irInfo(item.users.id)">Info User</button>
         </td>
       </tr>

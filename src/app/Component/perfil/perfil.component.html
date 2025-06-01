@@ -44,7 +44,9 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary" (click)="editar()">Editar</button>
+                <button type="submit" class="btn btn-primary" *ngIf="!isEditing" (click)="editar()">Editar</button>
+                <button type="submit" class="btn btn-success" *ngIf="isEditing" (click)="guardarDatos()">Guardar</button>
+                <button type="submit" class="btn btn-danger" *ngIf="isEditing" (click)="cancelar()">Cancelar</button>
                 <button type="submit" class="btn btn-info" (click)="adminCuenta()">Administrar cuenta</button>
             </div>
         </form>

@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../Services/user.service';
@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class UserComponent {
-  public user:User | null = null; 
+  public user:User | null = null;
   public isEditing = false;
   public id:any;
   constructor(private userService:UserService, private router:Router, private route:ActivatedRoute){}
@@ -36,8 +36,36 @@ export class UserComponent {
       })
   }
 
-  obtenerDatos(){
+  cancelar(){
+    this.isEditing = false;
+  }
 
+  guardarDatos(){
+    this.userService.putUser(this.user).subscribe({
+      next:(data)=>{
+        console.log("datos enviados: ", data);
+        this.isEditing = false;
+      },
+      error:(error)=>{console.error("Error al enviar los datos: ", error);}
+    })
+  }
+
+  desactivarUser(){
+    this.userService.activeUser(this.user).subscribe({
+      next:(data)=>{console.log("datos enviados: ", data);},
+      error:(error)=>{console.error("Error al enviar los datos: ", error);}
+    })
+  }
+
+  cambiarPassword(){
+    this.userService.changePassWord(this.user).subscribe({
+      next:(data)=>{console.log("datos enviados: ", data);},
+      error:(error)=>{console.error("Error al enviar los datos: ", error);}
+    })
+  }
+
+  editarDatos(){
+    this.isEditing = true;
   }
 
   public regresar(){
