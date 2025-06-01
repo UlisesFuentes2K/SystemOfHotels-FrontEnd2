@@ -14,7 +14,7 @@ export class PersonService {
   constructor(private http:HttpClient) { }
 
   // Obtener los datos de todas las personas
-  public getAllData():Observable<Person>{
+  public getAllData():Observable<Person[]>{
     const url = [this.APi, this.EndPoint].join('/');
     const token =  localStorage.getItem("token") || "";
     const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${token}`});

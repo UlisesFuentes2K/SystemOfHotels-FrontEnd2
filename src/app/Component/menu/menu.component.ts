@@ -16,4 +16,12 @@ export class MenuComponent {
   irProfile(){
     this.router.navigate(['profile']);
   }
+
+  irEmployee(){
+    this.router.navigate(['employee']);
+  }
+
+  irCustomer(){
+    this.router.navigate(['customer']);
+  }
 }

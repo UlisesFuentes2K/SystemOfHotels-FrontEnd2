@@ -7,6 +7,9 @@ import { PerfilComponent } from './Component/perfil/perfil.component';
 import { MenuComponent } from './Component/menu/menu.component';
 import { HomeComponent } from './Component/home/home.component';
 import { UserComponent } from './Component/user/user.component';
+import { CustomerComponent } from './Component/customer/customer.component';
+import { EmployeeComponent } from './Component/employee/employee.component';
+import { ActivatedRoute } from '@angular/router';
 //
 
 export const routes: Routes = [
@@ -18,8 +21,11 @@ export const routes: Routes = [
         component:MenuComponent,
         children:[
             {path:'profile', component:PerfilComponent},
+            {path:'register', component:RegistroComponent},
             {path:'home', component:HomeComponent},
-            {path:'user', component:UserComponent},
+            {path:'user/:id', component:UserComponent},
+            {path:'customer', component:CustomerComponent},
+            {path:'employee', component:EmployeeComponent},
         ]
     },
     {path:'**', redirectTo:'login'}

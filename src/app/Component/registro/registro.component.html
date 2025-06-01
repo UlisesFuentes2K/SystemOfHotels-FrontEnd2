@@ -1,1 +1,96 @@
-<p>registro works!</p>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Formulario de Registro</h2>
+
+  <form>
+    <!-- DATOS PERSONALES -->
+    <fieldset class="border p-4 mb-4 rounded">
+      <legend class="w-auto px-2">Datos Personales</legend>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="name" class="form-label">Nombre</label>
+          <input type="text" class="form-control" name="name" placeholder="Ingrese su nombre" [(ngModel)]="person.name">
+        </div>
+        <div class="col-md-6">
+          <label for="lastName" class="form-label">Apellido</label>
+          <input type="text" class="form-control" name="lastName" placeholder="Ingrese su apellido" [(ngModel)]="person.lastName">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="direction" class="form-label">Dirección</label>
+        <input type="text" class="form-control" name="direction" placeholder="Ingrese su dirección" [(ngModel)]="person.direction">
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="gender" class="form-label">Género</label>
+          <select class="form-select" name="gender" [(ngModel)]="person.idGender">
+            <option *ngFor="let item of register?.gender" [value]="item.idGender">
+              {{item.name}}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="document" class="form-label">Tipo de Documento</label>
+          <select class="form-select" name="document" [(ngModel)]="person.idTypeDocument">
+            <option *ngFor="let item of register?.typeDocument" [value]="item.idTypeDocument">
+              {{item.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="country" class="form-label">País</label>
+          <select class="form-select" name="country" [(ngModel)]="idCountry" (ngModelChange)="onCountryChange($event)">
+            <option *ngFor="let item of register?.country" [value]="item.idCountry">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="city" class="form-label">Ciudad</label>
+          <select class="form-select" name="city" [(ngModel)]="person.idCity">
+                <option *ngFor="let item of cityfilter" [value]="item.idCity">
+                    {{item.name}}
+                </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="numberDocument" class="form-label">Número de documento</label>
+        <input type="text" class="form-control" name="numberDocument" placeholder="Ej. 12345678-9" [(ngModel)]="person.numberDocument">
+      </div>
+    </fieldset>
+
+    <!-- DATOS DE USUARIO -->
+    <fieldset class="border p-4 mb-4 rounded">
+      <legend class="w-auto px-2">Datos de Usuario</legend>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" name="email" placeholder="usuario@correo.com" [(ngModel)]="person.users.email">
+      </div>
+
+      <div class="mb-3">
+        <label for="phoneNumber" class="form-label">Teléfono</label>
+        <input type="tel" class="form-control" name="phoneNumber" placeholder="Ingrese su número" [(ngModel)]="person.users.phoneNumber">
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="person.users.passwordHash">
+      </div>
+
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+        <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="confirmedPassword">
+      </div>
+    </fieldset>
+
+    <div class="d-grid">
+      <button type="button" class="btn btn-primary" (click)="enviarDatos()">Registrar</button>
+    </div>
+  </form>
+</div>

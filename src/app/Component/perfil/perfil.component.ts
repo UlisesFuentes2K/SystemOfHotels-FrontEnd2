@@ -32,6 +32,7 @@ export class PerfilComponent implements OnInit{
   }
 
   public adminCuenta(){
-    this.router.navigate(['user']);
+    const id = localStorage.getItem("Id") || "0";
+    this.router.navigate([`/user/${id}`]);
   }
 }

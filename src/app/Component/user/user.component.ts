@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../Services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../Models/user';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -14,13 +15,18 @@ import { User } from '../../Models/user';
 })
 
 export class UserComponent {
-  public user:User | null = null;
+  public user:User | null = null; 
   public isEditing = false;
-  constructor(private userService:UserService, private router:Router){}
+  public id:any;
+  constructor(private userService:UserService, private router:Router, private route:ActivatedRoute){}
 
   ngOnInit(): void {
-    const Id = localStorage.getItem("Id") || "0";
-      this.userService.getOneUser(Id).subscribe({
+    this.route.params.subscribe((params) => {
+    const Id = params['id'];
+      this.id = Id;
+    })
+
+      this.userService.getOneUser(this.id).subscribe({
         next:(data) => {
           this.user = data;
           console.log("Los datos son: ", this.user);},
@@ -28,6 +34,10 @@ export class UserComponent {
           console.error("Error al obtener los datos", error);
         }
       })
+  }
+
+  obtenerDatos(){
+
   }
 
   public regresar(){
