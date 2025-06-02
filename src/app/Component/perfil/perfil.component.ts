@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RegisterService } from '../../Services/register.service';
 import { Register } from '../../Models/register';
 import { City } from '../../Models/city';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil',
@@ -46,9 +47,23 @@ export class PerfilComponent implements OnInit{
     
   }
 
+  Alera(){
+          Swal.fire({
+          title: '¡Perfecto!',
+          text: 'Perfil actualizado correctamente.',
+          icon: 'success',
+          timer: 3000,
+          showConfirmButton: false,
+          showClass: {
+              popup: 'animate__animated animate__bounceIn'
+          }
+      });
+    }
+
   guardarDatos(){
     this.personService.putData(this.person).subscribe({
-      next:(data)=>{
+      next:()=>{
+        this.Alera()
         this.isEditing = false;
       },
       error:(error)=>{console.error("Error al enviar los datos: ", error);}
@@ -75,5 +90,12 @@ export class PerfilComponent implements OnInit{
 
   onCountryChange(idCountry:number) {
       this.cityfilter = this.register?.city.filter(x => x.idCountry == idCountry) || [];
+  }
+
+  isAdmin(): boolean {
+    const rol = localStorage.getItem('rol');
+    if (rol == "Admin") return false;
+
+    return true;
   }
 }

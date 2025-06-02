@@ -14,32 +14,47 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent {
   public sesion: any = { Email: "", PasswordHash: ""};
-  
     constructor(private userService: UserService, private router: Router) { }
   
     public login() {
+      this.AlertaCargando();
       this.userService.validateUser(this.sesion).subscribe({
         next: (data) => {
+          Swal.close();
           console.log("Proceso exitoso", data);
-          if (data === true) {
+          if (data === "OK") {
             this.router.navigate(['home']);
           } else {
-            console.error("Usuario no validado");
-            this.alertFailed();
+          Swal.close();
+            this.alertFailed(data);
           }
         },
         error: (error) => {
+          Swal.close();
           console.error("Error al obtener respuesta de validación", error);
         }
       })
     }
   
-    private alertFailed() {
+    private alertFailed(error:string){
+      console.log("Error es: ", error);
       Swal.fire({
         title: '¡Error!',
-        text: 'Credenciales incorrectas o no posees una cuenta registrada cuenta.',
+        text: `${error}`,
         icon: 'warning',
         confirmButtonText: 'Aceptar'
       })
     }
+
+    private AlertaCargando() {
+    Swal.fire({
+        title: 'Cargando...',
+        text: 'Por favor, espera mientras verificamos sus credenciales',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+  }
 }

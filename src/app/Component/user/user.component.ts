@@ -75,4 +75,11 @@ export class UserComponent {
   public regresar() {
     this.router.navigate(['user']);
   }
+
+  isAdmin(): boolean {
+    const rol = localStorage.getItem('rol');
+    if (rol !== "Admin") return false;
+
+    return true;
+  }
 }

@@ -9,23 +9,25 @@ import { HomeComponent } from './Component/home/home.component';
 import { UserComponent } from './Component/user/user.component';
 import { CustomerComponent } from './Component/customer/customer.component';
 import { EmployeeComponent } from './Component/employee/employee.component';
+import { authGuard } from './Auth/auth.guard';
+import { roleAuthGuard } from './Auth/role-auth.guard';
 //
 
 export const routes: Routes = [
     {path:'', redirectTo:'login', pathMatch:'full'},
     {path:'login', component:LoginComponent},
-    {path:'change_password', component:CambioPasswordComponent},
+    {path:'change_password', component:CambioPasswordComponent, canActivate:[authGuard]},
     {
         path:'',
         component:MenuComponent,
         children:[
-            {path:'profile', component:PerfilComponent},
-            {path:'profile/:id', component:PerfilComponent},
-            {path:'register', component:RegistroComponent},
-            {path:'home', component:HomeComponent},
-            {path:'user/:id', component:UserComponent},
-            {path:'customer', component:CustomerComponent},
-            {path:'employee', component:EmployeeComponent},
+            {path:'profile', component:PerfilComponent, canActivate:[authGuard]},
+            {path:'profile/:id', component:PerfilComponent, canActivate:[authGuard]},
+            {path:'register', component:RegistroComponent, canActivate:[authGuard]},
+            {path:'home', component:HomeComponent, canActivate:[authGuard]},
+            {path:'user/:id', component:UserComponent, canActivate:[authGuard]},
+            {path:'customer', component:CustomerComponent, canActivate:[authGuard]},
+            {path:'employee', component:EmployeeComponent, canActivate:[authGuard]},
         ]
     },
     {path:'**', redirectTo:'login'}

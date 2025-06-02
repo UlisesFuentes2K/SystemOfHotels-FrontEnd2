@@ -62,10 +62,11 @@
                 <button type="submit" class="btn btn-success" *ngIf="isEditing"
                     (click)="guardarDatos()">Guardar</button>
                 <button type="submit" class="btn btn-danger" *ngIf="isEditing" (click)="cancelar()">Cancelar</button>
-                <button type="submit" class="btn btn-warning" (click)="desactivarUser()" *ngIf="user">
+                <button type="submit" class="btn btn-warning" (click)="desactivarUser()" *ngIf="isAdmin()">
                     {{ user.isActive ? 'Desactivar cuenta' : 'Activar cuenta' }}
                 </button>
-                <button type="submit" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal" (click)="cambiarPassword(user.id)">Cambiar Contraseña</button>
+                <button type="submit" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal"
+                 (click)="cambiarPassword(user.id)" *ngIf="isAdmin()">Cambiar Contraseña</button>
             </div>
         </form>
     </div>
