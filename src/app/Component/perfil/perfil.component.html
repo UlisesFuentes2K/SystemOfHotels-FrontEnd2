@@ -59,7 +59,8 @@
 
       <div class="mb-3">
         <label for="numberDocument" class="form-label">Número de documento</label>
-        <input type="text" class="form-control" name="numberDocument" placeholder="Ej. 12345678-9" [(ngModel)]="person.numberDocument">
+        <input type="text" class="form-control" name="numberDocument" placeholder="Ej. 12345678-9"
+         [(ngModel)]="person.numberDocument" [readonly]="!isEditing">
       </div>
     </fieldset>
 
