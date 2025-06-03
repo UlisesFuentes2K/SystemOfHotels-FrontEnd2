@@ -115,7 +115,7 @@ export class UserService {
       map(res => {
         if(res.response.respuesta === "OK"){
           
-          if(res.response.idTypePerson == 1){
+          if(res.response.idTypePerson == 1){ 
               return "Credenciales inaccesibles";
           }
           const rol = res.response.rol[0];

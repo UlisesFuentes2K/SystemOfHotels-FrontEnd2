@@ -14,13 +14,14 @@ import { Person } from '../../Models/person';
 })
 export class EmployeeComponent implements OnInit{
   person:Person[] = [];
+  rol:string="";
 
   constructor (private router:Router, private personService:PersonService) {}
 
   ngOnInit(): void {
       this.personService.getAllData().subscribe({
         next:(data)=>{
-          console.log("Los datos son:", data); 
+          this.rol = localStorage.getItem('rol') || "";
           this.person = data.filter(x => x.idTypePerson !== 1);
         },
         error:(error)=>{console.error("Error al obtener los datos", error);}
@@ -28,15 +29,22 @@ export class EmployeeComponent implements OnInit{
   }
 
   irRegister(){
-    this.router.navigate(['register']);
+    this.router.navigate(['register']); 
   }
 
   irEdit(id:number){
-    this.router.navigate([`/profile/${id}`]);
+    this.router.navigate([`/user/${id}`]);
   }
 
   irInfo(id:string){
     this.router.navigate([`/user/${id}`]);
   }
 
+  isAdmin(): boolean {
+    if (this.rol === "Admin"){
+      console.log("El rol es:, ", this.rol);
+      return true;
+    } 
+    return false;
+  }
 }

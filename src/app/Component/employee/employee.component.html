@@ -1,6 +1,6 @@
 <div class="container mt-3">
-  <h2>Empleados Registrados</h2>
-  <button type="button" class="btn btn-success" id="agregar" (click)="irRegister()">Agregar</button>         
+  <h2>Empleados Registrados</h2><br>
+  <button type="button" class="btn btn-success" id="agregar" *ngIf="isAdmin()== true" (click)="irRegister()">Agregar</button>         
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -20,8 +20,8 @@
           {{item.users.isActive ? 'Sí' : 'No'}}
         </td>
         <td>
-            <button type="button" class="btn btn-warning" (click)="irEdit(item.idPerson)">Editar</button>
-            <button type="button" class="btn btn-info" (click)="irInfo(item.users.id)">Info User</button>
+            <button type="button" class="btn btn-warning" (click)="irEdit(item.idPerson)">Info User</button>
+            <button type="button" class="btn btn-info" *ngIf="isAdmin()">Info Employee</button>
         </td>
       </tr>
     </tbody>

@@ -32,7 +32,7 @@ export class CustomerComponent implements OnInit{
     }
   
     irEdit(id:number){
-      this.router.navigate([`/profile/${id}`]);
+      this.router.navigate([`/user/${id}`]);
     }
   
     irInfo(id:string){

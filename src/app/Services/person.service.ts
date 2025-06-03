@@ -51,31 +51,40 @@ export class PersonService {
   }
 
   // Guardar los datos de una persona
-  public postData(data:any):Observable<Person>{
+  public postData(data:any):Observable<{ response?: Person, error?: string }>{
     const url = [this.APi, this.EndPoint].join('/');
     const headers = new HttpHeaders({'Content-Type':'application/json'});
 
     return this.http.post<any>(url, data, {headers}).pipe(
       map(response => {
-        const data = response?.$value ?? response;
-        return data;
+       console.log("Respuesta recibida:", response);
+
+        if (response?.error) {
+            return { error: response.error };
+        }
+
+        return { response: response };
       }),
       catchError(error => {
         console.error("Error al guardar los datos", error); 
         throw error;})
-    )
+    ) 
   }
 
   // Actualizar los datos de una persona
-  public putData(data:any):Observable<Person>{
+  public putData(data:any):Observable<{ response?: Person, error?: string }>{
     const url = [this.APi, this.EndPoint].join('/');
     const token =  localStorage.getItem("token") || "";
     const headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':`Bearer ${token}`});
 
     return this.http.put<any>(url, data, {headers}).pipe(
       map(response => {
-        const data = response?.$value ?? response;
-        return data;
+       console.log("Respuesta recibida:", response);
+        if (response?.error) {
+            return { error: response.error };
+        }
+
+        return { response: response };
       }),
       catchError(error => {
         console.error('Error al actualizar los datos');

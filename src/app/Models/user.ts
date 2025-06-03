@@ -4,7 +4,7 @@ export interface User {
     emailConfirmed:boolean;
     passwordHash:string;
     twoFactorEnabled:boolean;
-    phoneNumber:string;
+    phoneNumber:string; 
     phoneNumberConfirmed:boolean;
     isActive:boolean;
 }
